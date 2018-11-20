@@ -1,7 +1,6 @@
 package beans;
 
 import java.util.Collection;
-import java.util.Date;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

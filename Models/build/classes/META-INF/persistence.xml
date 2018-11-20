@@ -7,6 +7,7 @@
     <class>models.Vehicle</class>
     <class>models.User</class>
     <class>models.Category</class>
+    <class>models.Characteristics</class>
 
     <properties>
       <property name="javax.persistence.jdbc.driver"

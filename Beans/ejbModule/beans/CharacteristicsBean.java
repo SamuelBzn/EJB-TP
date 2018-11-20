@@ -25,7 +25,7 @@ public class CharacteristicsBean implements CharacteristicsRemote, Characteristi
 	}
 
 	public Collection<Characteristics> findAll() {
-		Query query = em.createQuery("SELECT c FROM User c");
+		Query query = em.createQuery("SELECT c FROM Characteristics c");
 		return (Collection<Characteristics>) query.getResultList();
 	}
 

@@ -1,0 +1,17 @@
+task deploy(dependsOn: ['archive', 'createImage'])
+
+task archive(type:Exec) {
+  description "Créer un fichier WAR de l'application Spring MVC"
+  group "Deploiement"
+
+  workingDir "./Commerce"
+  commandLine "gradle", "war"
+}
+
+task createImage(type:Exec) {
+  description "Permet de générer une image Docker contenant Wildfly et les dépendences du projet"
+  group "Deploiement"
+
+  workingDir "."
+  commandLine "docker", "build", "--tag=webserver", "."
+}

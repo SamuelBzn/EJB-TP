@@ -1,9 +1,19 @@
 package beans;
 
-import javax.ejb.Remote;
+import java.util.Collection;
+
 import models.PurchaseCharacteristics;
 
-@Remote
 public interface PurchaseCharacteristicsRemote {
-	public PurchaseCharacteristics create(int purchase_id, int characteristic_id);
+
+	PurchaseCharacteristics create(int purchase_id, int characteristic_id);
+
+	PurchaseCharacteristics find(int id);
+
+	Collection<PurchaseCharacteristics> findAll();
+
+	void remove(int id);
+
+	PurchaseCharacteristics update(int id, int newId);
+
 }

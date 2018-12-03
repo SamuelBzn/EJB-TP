@@ -1,10 +1,20 @@
 package beans;
 
+import java.util.Collection;
 import java.util.Date;
-import javax.ejb.Remote;
+
 import models.Purchase;
 
-@Remote
 public interface PurchaseRemote {
-	public Purchase create(int vehicle_id, int user_id, Date created_at);
+
+	Purchase create(int vehicle_id, int user_id, Date created_at);
+
+	Purchase find(int id);
+
+	Collection<Purchase> findAll();
+
+	void remove(int id);
+
+	Purchase update(int id, int newID);
+
 }

@@ -13,7 +13,7 @@ import sathoro.BaseServlet;
 @WebServlet("/users/sign_up")
 public class SignupServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	@EJB
 	UserRemote userBean;
 
@@ -30,7 +30,7 @@ public class SignupServlet extends BaseServlet {
 		System.out.println("Email : " + params.get("email"));
 		System.out.println("Password : " + params.get("password"));
 		System.out.println("Devise : " + params.get("devise"));
-		
+
 		try {
 			userBean.create(
 			    params.get("pseudo"),

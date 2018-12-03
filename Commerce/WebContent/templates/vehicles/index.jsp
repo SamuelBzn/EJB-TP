@@ -7,6 +7,8 @@
 		<title>Liste des véhicules</title>
 	</head>
 	<body>
-		<!-- TODO: Parcourir la liste des véhicules -->
+		<v:forEach items="${vehicles}" var="vehicle">
+			<label>${v.id} - ${v.name}</label>
+		</v:forEach>
 	</body>
 </html>

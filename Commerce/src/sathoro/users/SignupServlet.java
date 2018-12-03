@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.UserBean;
+import beans.UserRemote;
 import sathoro.BaseServlet;
 
 @WebServlet("/users/sign_up")
@@ -15,7 +15,7 @@ public class SignupServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	UserBean userBean;
+	UserRemote userBean;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {

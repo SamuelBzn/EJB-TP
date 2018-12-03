@@ -2,19 +2,18 @@ package beans;
 
 import java.util.Collection;
 
-import javax.ejb.Remote;
-
 import models.Category;
 
-@Remote
 public interface CategoryRemote {
-	public Category create(String name);
 
-	public Category find(int id);
+	Category create(String name);
 
-	public Collection<Category> findAll();
+	Category find(int id);
 
-	public void remove(int id);
+	Collection<Category> findAll();
 
-	public Category update(int id, String newName);
+	void remove(int id);
+
+	Category update(int id, String newName);
+
 }

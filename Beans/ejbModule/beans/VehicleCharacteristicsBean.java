@@ -1,7 +1,6 @@
 package beans;
 
 import java.util.Collection;
-import java.util.Date;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -11,10 +10,11 @@ import javax.persistence.Query;
 import models.VehicleCharacteristics;
 
 @Stateless
-public class VehicleCharacteristicsBean implements VehicleCharacteristicsRemote, VehicleCharacteristicsLocal {
+public class VehicleCharacteristicsBean implements VehicleCharacteristicsRemote {
 	@PersistenceContext(unitName="ExampleDS")
 	private EntityManager em;
 
+	@Override
 	public VehicleCharacteristics create(int vehicle_id, int characteristic_id) {
 		VehicleCharacteristics vehc = new VehicleCharacteristics(vehicle_id, characteristic_id);
 		em.persist(vehc);
@@ -25,12 +25,13 @@ public class VehicleCharacteristicsBean implements VehicleCharacteristicsRemote,
 		return em.find(VehicleCharacteristics.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Collection<VehicleCharacteristics> findAll() {
 		Query query = em.createQuery("SELECT v FROM VehicleCharacteristics v");
-		return (Collection<VehicleCharacteristics>) query.getResultList();
+		return query.getResultList();
 	}
 
-	public void remove(int id) { 
+	public void remove(int id) {
 		VehicleCharacteristics veh = find(id);
 		if (veh != null) {
 			em.remove(veh);

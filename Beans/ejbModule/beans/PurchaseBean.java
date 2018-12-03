@@ -11,10 +11,11 @@ import javax.persistence.Query;
 import models.Purchase;
 
 @Stateless
-public class PurchaseBean implements PurchaseRemote, PurchaseLocal {
+public class PurchaseBean implements PurchaseRemote {
 	@PersistenceContext(unitName="ExampleDS")
 	private EntityManager em;
 
+	@Override
 	public Purchase create(int vehicle_id, int user_id, Date created_at) {
 		Purchase p = new Purchase(vehicle_id, user_id, created_at);
 		em.persist(p);
@@ -25,12 +26,13 @@ public class PurchaseBean implements PurchaseRemote, PurchaseLocal {
 		return em.find(Purchase.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Collection<Purchase> findAll() {
 		Query query = em.createQuery("SELECT p FROM Purchase p");
-		return (Collection<Purchase>) query.getResultList();
+		return query.getResultList();
 	}
 
-	public void remove(int id) { 
+	public void remove(int id) {
 		Purchase p = find(id);
 		if (p != null) {
 			em.remove(p);

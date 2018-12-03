@@ -10,10 +10,11 @@ import javax.persistence.Query;
 import models.Characteristics;
 
 @Stateless
-public class CharacteristicsBean implements CharacteristicsRemote, CharacteristicsLocal {
+public class CharacteristicsBean implements CharacteristicsRemote {
 	@PersistenceContext(unitName="ExampleDS")
 	private EntityManager em;
 
+	@Override
 	public Characteristics create(String name, double price) {
 		Characteristics c = new Characteristics(name, price);
 		em.persist(c);
@@ -24,12 +25,13 @@ public class CharacteristicsBean implements CharacteristicsRemote, Characteristi
 		return em.find(Characteristics.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Collection<Characteristics> findAll() {
 		Query query = em.createQuery("SELECT c FROM Characteristics c");
-		return (Collection<Characteristics>) query.getResultList();
+		return query.getResultList();
 	}
 
-	public void remove(int id) { 
+	public void remove(int id) {
 		Characteristics c = find(id);
 		if (c != null) {
 			em.remove(c);

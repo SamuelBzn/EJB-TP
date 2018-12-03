@@ -10,10 +10,11 @@ import javax.persistence.Query;
 import models.PurchaseCharacteristics;
 
 @Stateless
-public class PurchaseCharacteristicsBean implements PurchaseCharacteristicsRemote, PurchaseCharacteristicsLocal {
+public class PurchaseCharacteristicsBean implements PurchaseCharacteristicsRemote {
 	@PersistenceContext(unitName="ExampleDS")
 	private EntityManager em;
 
+	@Override
 	public PurchaseCharacteristics create(int purchase_id, int characteristic_id) {
 		PurchaseCharacteristics pc = new PurchaseCharacteristics(purchase_id, characteristic_id);
 		em.persist(pc);
@@ -24,12 +25,13 @@ public class PurchaseCharacteristicsBean implements PurchaseCharacteristicsRemot
 		return em.find(PurchaseCharacteristics.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Collection<PurchaseCharacteristics> findAll() {
 		Query query = em.createQuery("SELECT p FROM PurchaseCharacteristics p");
-		return (Collection<PurchaseCharacteristics>) query.getResultList();
+		return query.getResultList();
 	}
 
-	public void remove(int id) { 
+	public void remove(int id) {
 		PurchaseCharacteristics veh = find(id);
 		if (veh != null) {
 			em.remove(veh);

@@ -10,10 +10,11 @@ import javax.persistence.Query;
 import models.User;
 
 @Stateless
-public class UserBean implements UserRemote, UserLocal {
+public class UserBean implements UserRemote {
 	@PersistenceContext(unitName="ExampleDS")
 	private EntityManager em;
 
+	@Override
 	public User create(String name, String email, String password, int devise, int rank) {
 		User u = new User(name, email, password, devise, rank);
 		em.persist(u);
@@ -36,12 +37,13 @@ public class UserBean implements UserRemote, UserLocal {
 		return em.find(User.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Collection<User> findAll() {
 		Query query = em.createQuery("SELECT u FROM User u");
-		return (Collection<User>) query.getResultList();
+		return query.getResultList();
 	}
 
-	public void remove(int id) { 
+	public void remove(int id) {
 		User u = find(id);
 		if (u != null) {
 			em.remove(u);

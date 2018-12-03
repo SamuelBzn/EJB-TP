@@ -1,7 +1,6 @@
 package models;
 
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -13,12 +12,7 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
-	
-	@Enumerated
 	private int devise;
-	
-	
-	@Enumerated
 	private int rank;
 
 	public User() {
@@ -81,7 +75,7 @@ public class User {
 		this.rank = rank;
 	}
 
-	
+
 
 
 }

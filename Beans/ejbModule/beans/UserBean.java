@@ -19,6 +19,18 @@ public class UserBean implements UserRemote, UserLocal {
 		em.persist(u);
 		return u;
 	}
+	
+	public boolean login(String username, String password) {
+		try {
+			Query query = em.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password");
+			query.setParameter("username", username);
+			query.setParameter("password", password);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	public User find(int id) {
 		return em.find(User.class, id);

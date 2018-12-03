@@ -2,15 +2,20 @@ package sathoro.users;
 
 import java.util.Map;
 
+import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.UserBean;
 import sathoro.BaseServlet;
 
 @WebServlet("/users/sign_up")
 public class SignupServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
+	
+	@EJB
+	UserBean userBean;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -25,17 +30,18 @@ public class SignupServlet extends BaseServlet {
 		System.out.println("Email : " + params.get("email"));
 		System.out.println("Password : " + params.get("password"));
 		System.out.println("Devise : " + params.get("devise"));
-
-		// TODO: Connexion avec le bean des users. Quelque chose du genre :
-		//
-		//   userBean.register(
-		//       params.get("pseudo"),
-		//       params.get("email"),
-		//       ...
-		//   );
-		//
-		// La méthode retournerait le nécessaire pour savoir s'il y a eu des erreurs
-		// lors de l'inscription ou non.
+		
+		try {
+			userBean.create(
+			    params.get("pseudo"),
+			    params.get("email"),
+			    params.get("password"),
+			    Integer.parseInt(params.get("devise")),
+			    0
+			);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		redirect("/", response);
 	}

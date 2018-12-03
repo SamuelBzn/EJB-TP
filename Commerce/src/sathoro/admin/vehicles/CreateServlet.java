@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import beans.CategoryRemote;
 import sathoro.BaseServlet;
 
-@WebServlet("/admin/categories/new")
+@WebServlet("/admin/vehicles/new")
 public class CreateServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -20,7 +20,7 @@
 			<tbody>
 				<c:forEach items="${categories}" var="category">
 					<tr>
-						<td>${cateory.id}</td>
+						<td>${category.id}</td>
 						<td>${category.name}</td>
 						<td>
 							<a href="edit/${category.id}">Modifier</a> &middot;

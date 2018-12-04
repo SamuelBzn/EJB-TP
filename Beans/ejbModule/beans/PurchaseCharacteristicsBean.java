@@ -14,9 +14,6 @@ public class PurchaseCharacteristicsBean implements PurchaseCharacteristicsRemot
 	@PersistenceContext(unitName="ExampleDS")
 	private EntityManager em;
 
-	/* (non-Javadoc)
-	 * @see beans.PurchaseCharacteristicsRemote#create(int, int)
-	 */
 	@Override
 	public PurchaseCharacteristics create(int purchase_id, int characteristic_id) {
 		PurchaseCharacteristics pc = new PurchaseCharacteristics(purchase_id, characteristic_id);
@@ -24,17 +21,11 @@ public class PurchaseCharacteristicsBean implements PurchaseCharacteristicsRemot
 		return pc;
 	}
 
-	/* (non-Javadoc)
-	 * @see beans.PurchaseCharacteristicsRemote#find(int)
-	 */
 	@Override
 	public PurchaseCharacteristics find(int id) {
 		return em.find(PurchaseCharacteristics.class, id);
 	}
 
-	/* (non-Javadoc)
-	 * @see beans.PurchaseCharacteristicsRemote#findAll()
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public Collection<PurchaseCharacteristics> findAll() {
@@ -42,9 +33,6 @@ public class PurchaseCharacteristicsBean implements PurchaseCharacteristicsRemot
 		return query.getResultList();
 	}
 
-	/* (non-Javadoc)
-	 * @see beans.PurchaseCharacteristicsRemote#remove(int)
-	 */
 	@Override
 	public void remove(int id) {
 		PurchaseCharacteristics veh = find(id);
@@ -53,10 +41,6 @@ public class PurchaseCharacteristicsBean implements PurchaseCharacteristicsRemot
 		}
 	}
 
-
-	/* (non-Javadoc)
-	 * @see beans.PurchaseCharacteristicsRemote#update(int, int)
-	 */
 	@Override
 	public PurchaseCharacteristics update(int id, int newId) {
 		PurchaseCharacteristics vehc = em.find(PurchaseCharacteristics.class, id);

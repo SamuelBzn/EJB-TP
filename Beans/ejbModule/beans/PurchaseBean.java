@@ -15,9 +15,6 @@ public class PurchaseBean implements PurchaseRemote {
 	@PersistenceContext(unitName="ExampleDS")
 	private EntityManager em;
 
-	/* (non-Javadoc)
-	 * @see beans.PurchaseRemote#create(int, int, java.util.Date)
-	 */
 	@Override
 	public Purchase create(int vehicle_id, int user_id, Date created_at) {
 		Purchase p = new Purchase(vehicle_id, user_id, created_at);
@@ -25,17 +22,11 @@ public class PurchaseBean implements PurchaseRemote {
 		return p;
 	}
 
-	/* (non-Javadoc)
-	 * @see beans.PurchaseRemote#find(int)
-	 */
 	@Override
 	public Purchase find(int id) {
 		return em.find(Purchase.class, id);
 	}
 
-	/* (non-Javadoc)
-	 * @see beans.PurchaseRemote#findAll()
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public Collection<Purchase> findAll() {
@@ -43,9 +34,6 @@ public class PurchaseBean implements PurchaseRemote {
 		return query.getResultList();
 	}
 
-	/* (non-Javadoc)
-	 * @see beans.PurchaseRemote#remove(int)
-	 */
 	@Override
 	public void remove(int id) {
 		Purchase p = find(id);
@@ -54,10 +42,6 @@ public class PurchaseBean implements PurchaseRemote {
 		}
 	}
 
-
-	/* (non-Javadoc)
-	 * @see beans.PurchaseRemote#update(int, int)
-	 */
 	@Override
 	public Purchase update(int id, int newID) {
 		Purchase p = em.find(Purchase.class, id);

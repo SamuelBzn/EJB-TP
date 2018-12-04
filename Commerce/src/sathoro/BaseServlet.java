@@ -59,7 +59,7 @@ public abstract class BaseServlet extends HttpServlet {
 	 */
 	public void redirect(String location, HttpServletResponse response) {
 		try {
-			response.sendRedirect("/");
+			response.sendRedirect(location);
 		} catch (IOException e) {
 			System.out.println("Erreur lors de la redirection vers '" + location + "' :");
 			e.printStackTrace();

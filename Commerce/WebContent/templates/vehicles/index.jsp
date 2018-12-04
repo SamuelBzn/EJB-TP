@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -7,8 +8,8 @@
 		<title>Liste des véhicules</title>
 	</head>
 	<body>
-		<v:forEach items="${vehicles}" var="vehicle">
-			<label>${v.id} - ${v.name}</label>
-		</v:forEach>
+		<c:forEach items="${requestScope['vehicles']}" var="vehicle">
+			<label>${vehicle.id} - ${vehicle.name}</label>
+		</c:forEach>
 	</body>
 </html>

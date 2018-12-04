@@ -1,6 +1,7 @@
 package sathoro.vehicles;
 
 import javax.ejb.EJB;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,6 +10,7 @@ import beans.VehicleRemote;
 import models.Vehicle;
 import sathoro.BaseServlet;
 
+@WebServlet("/vehicles/index")
 public class IndexServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	

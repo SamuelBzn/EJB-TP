@@ -22,16 +22,17 @@ public class UserBean implements UserRemote {
 	}
 
 	@Override
-	public boolean login(String username, String password) {
-		try {
-			Query query = em.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password");
-			query.setParameter("username", username);
-			query.setParameter("password", password);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+	public User login(String name, String password) throws User.LoginException {
+		Query query = em.createQuery("SELECT u FROM User u WHERE u.name = :name AND u.password = :password");
+		query.setParameter("name", name);
+		query.setParameter("password", password);
+
+		User user = (User) query.getSingleResult();
+
+		if (user == null)
+			throw new User.LoginException();
+
+		return user;
 	}
 
 	@Override

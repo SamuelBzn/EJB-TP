@@ -6,8 +6,10 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import beans.UserRemote;
+import models.User;
 import sathoro.BaseServlet;
 
 @WebServlet("/users/sign_in")
@@ -27,9 +29,13 @@ public class SigninServlet extends BaseServlet {
 		Map<String, String> params = getParams(request);
 
 		try {
-			userBean.login(params.get("pseudo"), params.get("password"));
-		} catch (Exception e) {
-			e.printStackTrace();
+			User user = userBean.login(params.get("pseudo"), params.get("password"));
+
+			HttpSession session = request.getSession();
+			session.setAttribute("sessionId", user.getId());
+		} catch (User.LoginException e) {
+			// TODO: Afficher un message d'erreur
+			redirect("/users/sign_in", response);
 		}
 
 		redirect("/", response);

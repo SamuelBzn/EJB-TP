@@ -8,7 +8,7 @@ public interface UserRemote {
 
 	User create(String name, String email, String password, int devise, int rank);
 
-	boolean login(String username, String password);
+	User login(String name, String password) throws User.LoginException;
 
 	User find(int id);
 

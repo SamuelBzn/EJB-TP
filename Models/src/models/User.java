@@ -6,6 +6,14 @@ import javax.persistence.Id;
 
 @Entity
 public class User {
+	public static class LoginException extends Exception {
+		private static final long serialVersionUID = 1L;
+
+		public LoginException() {
+			super("Mauvaise combinaison pseudo / mot de passe");
+		}
+	}
+
 	@Id
 	@GeneratedValue
 	private int id;

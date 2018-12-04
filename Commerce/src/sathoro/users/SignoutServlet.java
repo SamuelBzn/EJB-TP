@@ -1,7 +1,5 @@
 package sathoro.users;
 
-import java.io.IOException;
-
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +17,10 @@ public class SignoutServlet extends BaseServlet {
 	UserRemote userBean;
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		render("users/sign_out", request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-	    response.sendRedirect("/");
+
+		redirect("/", response);
 	}
 }

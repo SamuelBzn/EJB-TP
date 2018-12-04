@@ -10,7 +10,9 @@
 	<body>
 		<form method="post">
 			<label for="name">Nom :</label>
-			<input type="text" name="name" id="name">
+			<input type="text" name="name" id="name" value="${category.name}">
+
+			<input type="hidden" name="id" value="${category.id}">
 			
 			<input type="submit" value="Envoyer">
 		</form>

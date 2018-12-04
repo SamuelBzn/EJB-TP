@@ -1,35 +1,34 @@
 package sathoro.admin.categories;
 
-import java.util.Map;
-
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.CategoryRemote;
-import models.Category;
 import sathoro.BaseServlet;
 
-@WebServlet("/admin/categories/new")
-public class CreateServlet extends BaseServlet {
-	public static final long serialVersionUID = 1L;
+@WebServlet("/admin/categories/edit")
+public class EditServlet extends BaseServlet {
+	private static final long serialVersionUID = 1L;
 
 	@EJB
 	private CategoryRemote categoryBean;
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) {
-		request.setAttribute("category", new Category());
+		int id = Integer.parseInt(request.getParameter("id"));
+		request.setAttribute("category", categoryBean.find(id));
 
-		this.render("admin/categories/form", request, response);
+		render("admin/categories/form", request, response);
 	}
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) {
-		Map<String, String> params = getParams(request);
+		int id = Integer.parseInt(request.getParameter("id"));
+		String name = request.getParameter("name");
 
-		categoryBean.create(params.get("name"));
+		categoryBean.update(id, name);
 
 		redirect("/admin/categories", response);
 	}

@@ -1,20 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Nouvelle catégorie</title>
-	</head>
-	
-	<body>
+<jsp:include page="../../assets/header.jsp" />
+	<div class="container">
 		<form method="post">
-			<label for="name">Nom :</label>
-			<input type="text" name="name" id="name" value="${category.name}">
+			<div class="form-group">
+				<label for="name">Nom :</label>
+				<input type="text" name="name" id="name" value="${category.name}"
+					class="form-control">
+			</div>
 
 			<input type="hidden" name="id" value="${category.id}">
 			
-			<input type="submit" value="Envoyer">
+			<input type="submit" value="Envoyer" class="btn btn-primary">
 		</form>
+	</div>
+
 	</body>
 </html>

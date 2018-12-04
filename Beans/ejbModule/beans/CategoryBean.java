@@ -14,9 +14,6 @@ public class CategoryBean implements CategoryRemote {
 	@PersistenceContext(unitName="ExampleDS")
 	private EntityManager em;
 
-	/* (non-Javadoc)
-	 * @see beans.CategoryRemote#create(java.lang.String)
-	 */
 	@Override
 	public Category create(String name) {
 		Category cat = new Category(name);
@@ -24,17 +21,11 @@ public class CategoryBean implements CategoryRemote {
 		return cat;
 	}
 
-	/* (non-Javadoc)
-	 * @see beans.CategoryRemote#find(int)
-	 */
 	@Override
 	public Category find(int id) {
 		return em.find(Category.class, id);
 	}
 
-	/* (non-Javadoc)
-	 * @see beans.CategoryRemote#findAll()
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public Collection<Category> findAll() {
@@ -42,9 +33,6 @@ public class CategoryBean implements CategoryRemote {
 		return query.getResultList();
 	}
 
-	/* (non-Javadoc)
-	 * @see beans.CategoryRemote#remove(int)
-	 */
 	@Override
 	public void remove(int id) {
 		Category cat = find(id);
@@ -54,9 +42,6 @@ public class CategoryBean implements CategoryRemote {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see beans.CategoryRemote#update(int, java.lang.String)
-	 */
 	@Override
 	public Category update(int id, String newName) {
 		Category cat = em.find(Category.class, id);

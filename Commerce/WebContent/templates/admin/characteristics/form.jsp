@@ -17,7 +17,7 @@
 			<div class="form-group">
 				<label>Catégorie :</label>
 				
-				<select name="category_id">
+				<select name="category_id" class="form-control">
 					<c:forEach items="${categories}" var="category">
 						<c:choose>
 						    <c:when test="${category.id == characteristic.category.id}">
@@ -35,7 +35,7 @@
 					</c:forEach>
 				</select>
 			</div>
-			
+
 			<input type="hidden" name="id" value="${characteristic.id}">
 			
 			<input type="submit" value="Envoyer" class="btn btn-primary">

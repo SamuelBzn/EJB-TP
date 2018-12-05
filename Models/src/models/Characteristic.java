@@ -3,22 +3,27 @@ package models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Characteristics {
+public class Characteristic {
 	@Id
 	@GeneratedValue
 	private int id;
 	private String name;
 	private double price;
 
-	public Characteristics() {
+	@ManyToOne
+	private Category category;
+
+	public Characteristic() {
 
 	}
 
-	public Characteristics(String name, double price) {
+	public Characteristic(String name, double price, Category category) {
 		this.name = name;
 		this.price = price;
+		this.category = category;
 	}
 
 	public int getId() {
@@ -43,5 +48,13 @@ public class Characteristics {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 }

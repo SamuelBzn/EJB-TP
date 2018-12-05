@@ -1,6 +1,16 @@
 <%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="../../assets/header.jsp" />
 	<div class="container">
+		<div class="float-right">
+			<p>
+				<a href="categories/new" class="btn btn-primary">
+					Nouvelle catégorie
+				</a>
+			</p>
+		</div>
+
+		<br>
+
 		<table class="table">
 			<thead>
 				<tr>

@@ -1,6 +1,7 @@
 package beans;
 
 import java.util.Collection;
+import java.util.List;
 
 import models.Category;
 import models.Characteristic;
@@ -17,4 +18,5 @@ public interface CharacteristicRemote {
 
 	Characteristic update(int id, String newName, double price, Category category);
 
+	List<Characteristic> findSome(List<Integer> ids);
 }

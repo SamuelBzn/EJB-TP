@@ -1,6 +1,7 @@
 package beans;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -53,5 +54,16 @@ public class CharacteristicBean implements CharacteristicRemote {
 			c.setCategory(category);
 		}
 		return c;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Characteristic> findSome(List<Integer> ids) {
+		Query query = em.createQuery("SELECT c FROM Characteristic c WHERE id IN :ids");
+
+		query.setParameter("ids", ids);
+
+		return query.getResultList();
 	}
 }

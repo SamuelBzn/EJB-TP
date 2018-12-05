@@ -18,8 +18,8 @@ import models.Characteristic;
 import models.Vehicle;
 import sathoro.BaseServlet;
 
-@WebServlet("/admin/vehicles/new")
-public class CreateServlet extends BaseServlet {
+@WebServlet("/admin/vehicles/edit")
+public class EditServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
@@ -33,31 +33,33 @@ public class CreateServlet extends BaseServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) {
-		request.setAttribute("categories", categoryBean.findAll());
-		request.setAttribute("vehicle", new Vehicle());
-		request.setAttribute("groups", categoryBean.groupsOfCharacteristics());
+		int id = Integer.parseInt(request.getParameter("id"));
+		Vehicle vehicle = vehicleBean.find(id);
 
-		this.render("admin/vehicles/form", request, response);
+		request.setAttribute("categories", categoryBean.findAll());
+		request.setAttribute("groups", categoryBean.groupsOfCharacteristics());
+		request.setAttribute("vehicle", vehicle);
+
+		render("admin/vehicles/form", request, response);
 	}
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, String> params = getParams(request);
 
+		int id = Integer.parseInt(params.get("id"));
 		int categoryId = Integer.parseInt(params.get("category_id"));
+
 		Category category = categoryBean.find(categoryId);
 
-		// On récupère la liste des ids spécifiés via les checkbox
-		// du formulaire et on fait appel au bean associé pour récupérer
-		// des instances de la classe `Characteristic` à associer.
-		List<Integer> charsIds = Arrays.asList(request.getParameterValues("characteristics"))
+		List<Integer> charIds = Arrays.asList(request.getParameterValues("characteristics"))
 				.stream()
 				.map(Integer::parseInt)
 				.collect(Collectors.toList());
+		List<Characteristic> characteristics = characteristicBean.findSome(charIds);
 
-		List<Characteristic> characteristics = characteristicBean.findSome(charsIds);
-
-		vehicleBean.create(
+		vehicleBean.update(
+			id,
 			params.get("name"),
 			params.get("description"),
 			Double.parseDouble(params.get("price")),

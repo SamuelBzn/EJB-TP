@@ -1,10 +1,17 @@
 package models;
 
-import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Vehicle {
@@ -15,20 +22,30 @@ public class Vehicle {
 	private String description;
 	private double price;
 	private int stock;
-	private int category_id;
-	private Date created_at;
+
+
+	@ManyToOne
+	private Category category;
+
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(
+		name="vehicle_characteristic",
+		joinColumns=@JoinColumn(name="vehicle_id", referencedColumnName="id"),
+		inverseJoinColumns=@JoinColumn(name="characteristic_id", referencedColumnName="id")
+	)
+	private List<Characteristic> characteristics;
+
+	transient private Set<Integer> characteristicIds;
 
 	public Vehicle() {
 
 	}
 
-	public Vehicle(String name, String description, double price, int stock, int category_id, Date created_at) {
+	public Vehicle(String name, String description, double price, int stock) {
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.stock = stock;
-		this.category_id = category_id;
-		this.created_at = created_at;
 	}
 
 	public int getId() {
@@ -71,21 +88,31 @@ public class Vehicle {
 		this.stock = stock;
 	}
 
-	public int getCategory_id() {
-		return category_id;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setCategory_id(int category_id) {
-		this.category_id = category_id;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public List<Characteristic> getCharacteristics() {
+		return characteristics;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCharacteristics(List<Characteristic> characteristics) {
+		this.characteristics = characteristics;
+		this.characteristicIds = null;
 	}
 
+	public Set<Integer> getCharacteristicIds() {
+		if (characteristicIds == null) {
+			characteristicIds = characteristics.stream()
+					.map(c -> c.getId())
+					.collect(Collectors.toSet());
+		}
+
+		return characteristicIds;
+	}
 
 }

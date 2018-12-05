@@ -1,13 +1,15 @@
 package beans;
 
 import java.util.Collection;
-import java.util.Date;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import models.Category;
+import models.Characteristic;
 import models.Vehicle;
 
 @Stateless
@@ -16,8 +18,14 @@ public class VehicleBean implements VehicleRemote {
 	private EntityManager em;
 
 	@Override
-	public Vehicle create(String name, String description, double price, int stock, int category_id, Date created_at) {
-		Vehicle veh = new Vehicle(name, description, price, stock, category_id, created_at);
+	public Vehicle create(String name, String description,
+			double price, int stock,
+			Category category, List<Characteristic> characteristics) {
+		Vehicle veh = new Vehicle(name, description, price, stock);
+
+		veh.setCategory(category);
+		veh.setCharacteristics(characteristics);
+
 		em.persist(veh);
 		return veh;
 	}
@@ -43,11 +51,20 @@ public class VehicleBean implements VehicleRemote {
 	}
 
 	@Override
-	public Vehicle update(int id, String newName) {
+	public Vehicle update(int id, String newName, String description,
+			double price, int stock,
+			Category category, List<Characteristic> characteristics) {
 		Vehicle veh = em.find(Vehicle.class, id);
+
 		if (veh != null) {
 			veh.setName(newName);
+			veh.setDescription(description);
+			veh.setPrice(price);
+			veh.setStock(stock);
+			veh.setCategory(category);
+			veh.setCharacteristics(characteristics);
 		}
+
 		return veh;
 	}
 }

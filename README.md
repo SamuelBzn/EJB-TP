@@ -9,8 +9,11 @@ en elle même. Il suffit de lancer la commande :
 ~~~
 $ gradle deploy
 
-# Pour uniquement empaqueter l'application
+# Pour uniquement empaqueter les projets en JAR et WAR
 $ gradle archive
+
+# Pour empaqueter l'application en EAR
+$ gradle ear
 
 # Pour uniquement créer l'image Docker
 $ gradle createImage

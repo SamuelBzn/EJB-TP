@@ -1,16 +1,142 @@
-task deploy(dependsOn: ['archive', 'createImage'])
+subprojects {
+  apply plugin: 'java'
 
-task archive(type:Exec) {
-  description "Créer un fichier WAR de l'application Spring MVC"
+  version = '1.0'
+
+  repositories {
+    mavenCentral()
+  }
+}
+
+// Models
+//
+// Projet contenant les entités JPA
+project(':Models') {
+  sourceSets {
+    main {
+      java {
+        srcDirs = ["src/models"]
+      }
+    }
+  }
+
+  jar {
+    metaInf {
+      from("src/META-INF")
+    }
+  }
+
+  dependencies {
+    compile group: 'javax.persistence', name: 'persistence-api', version: '1.0'
+  }
+
+  task archive(dependsOn: ['jar']) {
+    group "Deploiement"
+
+    doLast {
+      println "---> JAR Pour le projet 'Models' généré"
+    }
+  }
+}
+
+// Beans
+//
+// Tout ce qui concerne le projet 'Beans', contenant les EJB
+// pour intéragir facilement avec les modèles de l'application.
+project(':Beans') {
+  sourceSets {
+    main {
+      java {
+        srcDirs = ["ejbModule/beans"]
+      }
+    }
+  }
+
+  dependencies {
+    compile group: 'javax.ejb', name: 'ejb-api', version: '3.0'
+    implementation project(':Models')
+  }
+
+  task archive(dependsOn: ['jar']) {
+    group "Deploiement"
+
+    doLast {
+      println "---> JAR pour le projet 'Beans' généré"
+    }
+  }
+}
+
+// Commerce
+//
+// Projet web dynamique utilisant les EJB pour fournir une interface
+// web proposant un site de e-commerce pour véhicules.
+project(':Commerce') {
+  apply plugin: 'war'
+
+  dependencies {
+    providedCompile('javax.servlet:javax.servlet-api:4.0.1')
+    implementation project(':Beans')
+    implementation project(':Models')
+  }
+
+  war {
+    webInf {
+      from('WebContent/WEB-INF')
+    }
+
+    from('WebContent/templates')
+  }
+
+  task archive(dependsOn: ['war']) {
+    group "Deploiement"
+
+    doLast {
+      println "---> WAR pour le projet 'Commerce' généré"
+    }
+  }
+}
+
+// Root project
+//
+// Tout ce qui concerne le projet principal (i.e. ce dépôt Git)
+// notamment la génération du fichier EAR.
+apply plugin: 'ear'
+apply plugin: 'java'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  // EAR Modules
+  deploy project(path: 'Commerce', configuration: 'archives')
+  deploy project(path: 'Beans', configuration: 'archives')
+
+  // EAR libs
+  earlib project(path: 'Models')
+}
+
+ear {
+  deploymentDescriptor {
+    webModule("Commerce-1.0.war", "/")
+  }
+}
+
+task archive(dependsOn: [':Models:archive', ':Beans:archive', ':Commerce:archive']) {
+  description "Génére les fichiers JAR et WAR"
   group "Deploiement"
+}
 
-  workingDir "./Commerce"
-  commandLine "gradle", "war"
+task deploy(dependsOn: ['archive', 'ear', 'createImage']) {
+  description "Génére les archives du projet et l'image Docker"
+  group "Deploiement"
 }
 
 task createImage(type:Exec) {
   description "Permet de générer une image Docker contenant Wildfly et les dépendences du projet"
   group "Deploiement"
+
+  mustRunAfter "ear"
 
   workingDir "."
   commandLine "docker", "build", "--tag=webserver", "."

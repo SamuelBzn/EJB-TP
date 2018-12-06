@@ -5,6 +5,7 @@ FROM jboss/base-jdk:8
 ENV WILDFLY_VERSION 14.0.1.Final
 ENV WILDFLY_SHA1 757d89d86d01a9a3144f34243878393102d57384
 ENV JBOSS_HOME /opt/jboss/wildfly
+ENV H2_HOME $JBOSS_HOME/modules/system/layers/base/com/h2database/h2/main/
 
 USER JBOSS
 
@@ -23,7 +24,11 @@ RUN cd $HOME \
 
 RUN $JBOSS_HOME/bin/add-user.sh jean-michel jar
 
-ADD Commerce/build/libs/Commerce.war $JBOSS_HOME/standalone/deployments
+ADD build/libs/EJB-TP.ear $JBOSS_HOME/standalone/deployments
+ADD standalone-full.xml $JBOSS_HOME/standalone/configuration
+
+ADD setup.sh $JBOSS_HOME
+RUN chmod +x $JBOSS_HOME/setup.sh
 
 # Ensure signals are forwarded to the JVM process correctly for graceful shutdown
 ENV LAUNCH_JBOSS_IN_BACKGROUND true
@@ -32,7 +37,9 @@ USER jboss
 
 # Expose the ports we're interested in
 EXPOSE 8080
+EXPOSE 8082
 
-# Set the default command to run on boot
-# This will boot WildFly in the standalone mode and bind to all interface
-CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+# Popotte pour démarrer H2 et démarrage de Wildfly
+CMD $JBOSS_HOME/setup.sh \
+    && $JBOSS_HOME/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0 \
+      -c standalone-full.xml

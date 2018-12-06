@@ -1,4 +1,5 @@
 <jsp:include page="../../assets/header.jsp" />
+<jsp:include page="../../assets/admin_header.jsp" />
 	<div class="container">
 		<form method="post">
 			<div class="form-group">
@@ -13,5 +14,5 @@
 		</form>
 	</div>
 
-	</body>
+</body>
 </html>

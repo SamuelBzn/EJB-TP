@@ -1,5 +1,6 @@
 <%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="../../assets/header.jsp" />
+<jsp:include page="../../assets/admin_header.jsp" />
 	<div class="container">
 		<form method="post">
 			<div class="row">
@@ -92,5 +93,6 @@
 			</div>
 		</form>
 	</div>
+
 </body>
 </html>

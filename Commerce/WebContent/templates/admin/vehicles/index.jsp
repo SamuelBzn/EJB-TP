@@ -1,5 +1,6 @@
 <%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="../../assets/header.jsp" />
+<jsp:include page="../../assets/admin_header.jsp" />
 	<div class="container">
 		<div class="float-right">
 			<p>
@@ -36,5 +37,6 @@
 			</tbody>
 		</table>
 	</div>
+
 </body>
 </html>

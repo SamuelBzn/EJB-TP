@@ -1,28 +1,47 @@
 package models;
 
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Purchase {
 	@Id
 	@GeneratedValue
 	private int id;
-	private int vehicle_id;
-	private int user_id;
-	private Date created_at;
+
+	transient double unitPrice;
+	private int quantity;
+
+	@ManyToOne
+	private Vehicle vehicle;
+
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name="purchase_characteristic",
+			joinColumns=@JoinColumn(name="purchase_id", referencedColumnName="id"),
+			inverseJoinColumns=@JoinColumn(name="characteristic_id", referencedColumnName="id")
+		)
+	private List<Characteristic> characteristics;
+
+	@ManyToOne
+	private Delivery delivery;
 
 	public Purchase() {
 
 	}
 
-	public Purchase(int vehicle_id, int user_id, Date created_at) {
-		this.vehicle_id = vehicle_id;
-		this.user_id = user_id;
-		this.created_at = created_at;
+	public Purchase(Vehicle vehicle, int quantity, List<Characteristic> characteristics) {
+		this.vehicle         = vehicle;
+		this.quantity        = quantity;
+		this.characteristics = characteristics;
 	}
 
 	public int getId() {
@@ -33,28 +52,43 @@ public class Purchase {
 		this.id = id;
 	}
 
-	public int getVehicle_id() {
-		return vehicle_id;
+	public Vehicle getVehicle() {
+		return vehicle;
 	}
 
-	public void setVehicle_id(int vehicle_id) {
-		this.vehicle_id = vehicle_id;
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
 	}
 
-	public int getUser_id() {
-		return user_id;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public List<Characteristic> getCharacteristics() {
+		return characteristics;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCharacteristics(List<Characteristic> characteristics) {
+		this.characteristics = characteristics;
 	}
-	
+
+	public double getUnitPrice() {
+		return this.vehicle.getPrice() +
+				this.characteristics.stream()
+					.mapToDouble(e -> e.getPrice())
+					.sum();
+	}
+
+	public Delivery getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(Delivery delivery) {
+		this.delivery = delivery;
+	}
+
 }

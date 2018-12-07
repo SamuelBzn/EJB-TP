@@ -23,7 +23,7 @@
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container">
-				<a class="navbar-brand" href="#">TP EJB</a>
+				<a class="navbar-brand" href="/">TP EJB</a>
 
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarNav">
@@ -32,22 +32,24 @@
 
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav">
-						<li class="nav-item active"><a class="nav-link" href="#">Home
-								<span class="sr-only">(current)</span>
-						</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Features</a>
+						<li class="nav-item">
+							<a class="nav-link" href="/">Accueil</a>
 						</li>
-						<li class="nav-item"><a class="nav-link" href="#">Pricing</a>
-						</li>
-						<li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a>
-						</li>
+
+						<c:choose>
+					    	<c:when test="${sessionScope.sessionId != null}">
+					    		<li class="nav-item">
+					    			<a href="/deliveries" class="nav-link">Vos achats</a>
+					    		</li>
+					    	</c:when>
+					    </c:choose>
 					</ul>
 				</div>
 
 				<span class="navbar-text">
 					<c:choose>
 					    <c:when test="${sessionScope.sessionId != null}">
-							<a href="">Votre panier</a> &middot;
+							<a href="/cart">Votre panier</a> &middot;
 					        <a href="/users/sign_out">Déconnexion</a>
 					    </c:when>
 

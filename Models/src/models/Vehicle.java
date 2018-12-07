@@ -1,5 +1,6 @@
 package models;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -106,6 +107,9 @@ public class Vehicle {
 	}
 
 	public Set<Integer> getCharacteristicIds() {
+		if (characteristics == null)
+			return new HashSet<Integer>();
+
 		if (characteristicIds == null) {
 			characteristicIds = characteristics.stream()
 					.map(c -> c.getId())

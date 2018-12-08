@@ -1,8 +1,6 @@
 package sathoro.cart;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import beans.DeliveryRemote;
 import beans.PurchaseRemote;
 import beans.UserRemote;
-import models.Delivery;
 import models.Purchase;
 import models.User;
 import sathoro.BaseServlet;
@@ -52,16 +49,14 @@ public class ValidateServlet extends BaseServlet {
 		ArrayList<Purchase> cart = (ArrayList<Purchase>)rawCart;
 		User user = userBean.find(sessionId);
 
-		Delivery delivery = deliveryBean.create(user);
+		try {
+			deliveryBean.create(cart, user);
+		} catch (DeliveryRemote.OutOfStockException e) {
+			request.setAttribute("error", e.getMessage());
 
-		List<Purchase> purchases = cart.stream()
-			.map(p -> {
-				p.setDelivery(delivery);
-				return purchaseBean.save(p);
-			})
-			.collect(Collectors.toList());
-
-		delivery.setPurchases(purchases);
+			render("cart/out_of_stock", request, response);
+			return;
+		}
 
 		// On vide le panier une fois que tout s'est bien passé.
 		session.setAttribute("cart", new ArrayList<Purchase>());

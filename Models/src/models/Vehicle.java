@@ -119,4 +119,12 @@ public class Vehicle {
 		return characteristicIds;
 	}
 
+	/**
+	 * Permet de facilement retirer `n` éléments du stock.
+	 *
+	 * @param quantity - Quantité à retirer du stock.
+	 */
+	public void decreaseStock(int quantity) {
+		this.stock = this.stock - quantity;
+	}
 }

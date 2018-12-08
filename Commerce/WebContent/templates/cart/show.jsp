@@ -35,6 +35,7 @@
 						</c:forEach>
 					</ul>
 					
+					<div class="clearfix"></div>
 					<hr>
 				</c:forEach>
 				

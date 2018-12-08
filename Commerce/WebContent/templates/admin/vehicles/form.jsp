@@ -2,6 +2,8 @@
 <jsp:include page="../../assets/header.jsp" />
 <jsp:include page="../../assets/admin_header.jsp" />
 	<div class="container">
+		<br>
+
 		<form method="post">
 			<div class="row">
 				<div class="col-md-6">

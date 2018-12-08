@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -49,7 +50,14 @@
 				<span class="navbar-text">
 					<c:choose>
 					    <c:when test="${sessionScope.sessionId != null}">
-							<a href="/cart">Votre panier</a> &middot;
+							<a href="/cart">
+								Votre panier
+								<c:if test="${not empty sessionScope.cart}">
+									<span class="badge badge-secondary">
+										${fn:length(sessionScope.cart)}
+									</span>
+								</c:if>
+							</a> &middot;
 					        <a href="/users/sign_out">Déconnexion</a>
 					    </c:when>
 

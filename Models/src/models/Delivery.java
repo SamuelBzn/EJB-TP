@@ -17,7 +17,7 @@ public class Delivery implements Serializable {
 	@GeneratedValue
 	private int id;
 
-	@OneToMany(mappedBy="delivery", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="delivery", fetch=FetchType.LAZY)
 	private List<Purchase> purchases;
 
 	@ManyToOne

@@ -8,6 +8,7 @@
 		
 			<c:otherwise>
 				<c:forEach items="${deliveries}" var="delivery">
+					<h1>Commande #${delivery.id}</h1>
 					<c:forEach items="${delivery.purchases}" var="purchase">
 						<div class="float-right">
 							${purchase.unitPrice} &times; ${purchase.quantity} =

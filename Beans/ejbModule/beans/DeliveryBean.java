@@ -30,6 +30,19 @@ public class DeliveryBean implements DeliveryRemote {
 
 		query.setParameter("userId", userId);
 
-		return query.getResultList();
+		List<Delivery> deliveries = query.getResultList();
+
+		// Technique du bled ; chargement des charactéristiques pour éviter
+		// une exception lors du parcours de la liste de charactéristiques
+		// dans la vue (puisque l'on est en dehors du contexte de la transaction).
+		//
+		// On charge explicitement la collection d'achats et les caractéristiques
+		// associées. On appelle `size` pour s'assurer que la collection est bien
+		// chargée.
+		deliveries.forEach(d -> {
+			d.getPurchases().forEach(p -> p.getCharacteristics().size());
+		});
+
+		return deliveries;
 	}
 }

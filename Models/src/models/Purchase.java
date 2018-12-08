@@ -3,7 +3,6 @@ package models;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -23,7 +22,7 @@ public class Purchase {
 	@ManyToOne
 	private Vehicle vehicle;
 
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany
 	@JoinTable(
 			name="purchase_characteristic",
 			joinColumns=@JoinColumn(name="purchase_id", referencedColumnName="id"),

@@ -6,10 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.CategoryRemote;
-import sathoro.BaseServlet;
+import sathoro.AdminServlet;
 
 @WebServlet("/admin/categories")
-public class IndexServlet extends BaseServlet {
+public class IndexServlet extends AdminServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB

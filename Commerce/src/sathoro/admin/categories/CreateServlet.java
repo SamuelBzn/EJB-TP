@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import beans.CategoryRemote;
 import models.Category;
-import sathoro.BaseServlet;
+import sathoro.AdminServlet;
 
 @WebServlet("/admin/categories/new")
-public class CreateServlet extends BaseServlet {
+public class CreateServlet extends AdminServlet {
 	public static final long serialVersionUID = 1L;
 
 	@EJB

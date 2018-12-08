@@ -83,7 +83,11 @@ public class User {
 		this.rank = rank;
 	}
 
-
-
-
+	/**
+	 * Prédicat permettant de déterminer si un utilisateur est
+	 * admin ou non.
+	 */
+	public boolean isAdmin() {
+		return this.rank == 1;
+	}
 }

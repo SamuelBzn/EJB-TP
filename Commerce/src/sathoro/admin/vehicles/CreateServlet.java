@@ -16,10 +16,10 @@ import beans.VehicleRemote;
 import models.Category;
 import models.Characteristic;
 import models.Vehicle;
-import sathoro.BaseServlet;
+import sathoro.AdminServlet;
 
 @WebServlet("/admin/vehicles/new")
-public class CreateServlet extends BaseServlet {
+public class CreateServlet extends AdminServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB

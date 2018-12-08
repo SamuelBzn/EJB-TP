@@ -11,10 +11,10 @@ import beans.CategoryRemote;
 import beans.CharacteristicRemote;
 import models.Category;
 import models.Characteristic;
-import sathoro.BaseServlet;
+import sathoro.AdminServlet;
 
 @WebServlet("/admin/characteristics/new")
-public class CreateServlet extends BaseServlet {
+public class CreateServlet extends AdminServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB

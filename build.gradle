@@ -73,6 +73,14 @@ project(':Beans') {
 project(':Commerce') {
   apply plugin: 'war'
 
+  sourceSets {
+    main {
+      java {
+        srcDirs = ["src/sathoro"]
+      }
+    }
+  }
+
   dependencies {
     providedCompile('javax.servlet:javax.servlet-api:4.0.1')
     implementation project(':Beans')
@@ -84,7 +92,9 @@ project(':Commerce') {
       from('WebContent/WEB-INF')
     }
 
-    from('WebContent/templates')
+    from('WebContent/templates') {
+      into('templates')
+    }
   }
 
   task archive(dependsOn: ['war']) {

@@ -34,9 +34,12 @@ public class AddServlet extends BaseServlet {
 
 		Integer sessionId = (Integer)session.getAttribute("sessionId");
 
-		// TODO: Afficher un message d'erreur si l'utilisateur
-		// n'est pas connecté.
 		if (sessionId == null) {
+			setErrorMessage(
+				"Veuillez vous connecter avant d'acheter des produits.",
+				request
+			);
+
 			redirect("/users/sign_in", response);
 			return;
 		}

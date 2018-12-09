@@ -30,6 +30,7 @@ public class AdminServlet extends BaseServlet {
 		Integer sessionId = (Integer)session.getAttribute("sessionId");
 
 		if (sessionId == null) {
+			setErrorMessage("Vous n'avez pas le droit d'être ici.", request);
 			redirect("/", response);
 			return;
 		}
@@ -37,6 +38,7 @@ public class AdminServlet extends BaseServlet {
 		User user = userBean.find(sessionId);
 
 		if (!user.isAdmin()) {
+			setErrorMessage("Vous n'avez pas le droit d'être ici.", request);
 			redirect("/", response);
 			return;
 		}

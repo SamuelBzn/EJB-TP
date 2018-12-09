@@ -19,9 +19,12 @@ public class ShowServlet extends BaseServlet {
 		HttpSession session = request.getSession();
 		Integer sessionId = (Integer)session.getAttribute("sessionId");
 
-		// TODO: Afficher un message d'erreur indiquant à l'utilisateur
-		// de se connecter.
 		if (sessionId == null) {
+			setErrorMessage(
+				"Veuillez vous connecter avant de continuer.",
+				request
+			);
+
 			redirect("/", response);
 			return;
 		}

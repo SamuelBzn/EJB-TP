@@ -21,6 +21,11 @@ public class SignoutServlet extends BaseServlet {
 		HttpSession session = request.getSession();
 		session.invalidate();
 
+		setNoticeMessage(
+			"Vous êtes maintenant déconnecté(e).",
+			request
+		);
+
 		redirect("/", response);
 	}
 }

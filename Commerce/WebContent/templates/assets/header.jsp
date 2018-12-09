@@ -69,3 +69,19 @@
 				</span>
 			</div>
 		</nav>
+
+		<div class="container">
+			<c:if test="${not empty sessionScope.error}">
+				<div class="alert alert-danger">
+					${sessionScope.error}
+					<c:remove var="error" scope="session" />
+				</div>
+			</c:if>
+
+			<c:if test="${not empty sessionScope.notice}">
+				<div class="alert alert-success">
+					${sessionScope.notice}
+					<c:remove var="notice" scope="session" />
+				</div>
+			</c:if>
+		</div>

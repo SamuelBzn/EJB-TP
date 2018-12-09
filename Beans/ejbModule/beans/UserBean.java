@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -27,10 +28,14 @@ public class UserBean implements UserRemote {
 		query.setParameter("name", name);
 		query.setParameter("password", password);
 
-		User user = (User) query.getSingleResult();
+		User user;
 
-		if (user == null)
+		try {
+			user = (User) query.getSingleResult();
+		} catch (NoResultException e) {
 			throw new User.LoginException();
+		}
+
 
 		return user;
 	}

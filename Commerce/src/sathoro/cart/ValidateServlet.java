@@ -34,6 +34,11 @@ public class ValidateServlet extends BaseServlet {
 		Integer sessionId = (Integer)session.getAttribute("sessionId");
 
 		if (sessionId == null) {
+			setErrorMessage(
+				"Vous devez vous connecter avant de poursuivre.",
+				request
+			);
+
 			redirect("/", response);
 			return;
 		}
@@ -60,6 +65,11 @@ public class ValidateServlet extends BaseServlet {
 
 		// On vide le panier une fois que tout s'est bien passé.
 		session.setAttribute("cart", new ArrayList<Purchase>());
+
+		setNoticeMessage(
+			"Votre commande a été passée avec succés",
+			request
+		);
 
 		redirect("/", response);
 	}

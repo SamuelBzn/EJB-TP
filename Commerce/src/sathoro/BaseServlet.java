@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public abstract class BaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -64,6 +65,28 @@ public abstract class BaseServlet extends HttpServlet {
 			System.out.println("Erreur lors de la redirection vers '" + location + "' :");
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Permet de définir facilement un message d'erreur à afficher côté vue.
+	 *
+	 * @param message
+	 * @param request
+	 */
+	public void setErrorMessage(String message, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("error", message);
+	}
+
+	/**
+	 * Permet de définir facilement un message de succés à afficher côté vue.
+	 *
+	 * @param message
+	 * @param request
+	 */
+	public void setNoticeMessage(String message, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("notice", message);
 	}
 
 }

@@ -34,9 +34,14 @@ public class SigninServlet extends BaseServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("sessionId", user.getId());
 		} catch (User.LoginException e) {
-			// TODO: Afficher un message d'erreur
+			setErrorMessage(e.getMessage(), request);
 			redirect("/users/sign_in", response);
 		}
+
+		setNoticeMessage(
+			"Vous êtes maintenant connecté(e).",
+			request
+		);
 
 		redirect("/", response);
 	}

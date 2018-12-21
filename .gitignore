@@ -5,4 +5,5 @@
 **/.gradle
 **/.DS_Store
 
+**/target
 */.classpath

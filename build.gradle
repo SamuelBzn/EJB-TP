@@ -54,6 +54,9 @@ project(':Beans') {
 
   dependencies {
     compile group: 'javax.ejb', name: 'ejb-api', version: '3.0'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-core', version: '1.11.470'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-lambda', version: '1.11.470'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.8'
     implementation project(':Models')
   }
 
@@ -124,6 +127,8 @@ dependencies {
 
   // EAR libs
   earlib project(path: 'Models')
+  earlib compile('com.amazonaws:aws-java-sdk-core:1.11.470')
+  earlib compile('com.amazonaws:aws-java-sdk-lambda:1.11.470')
 }
 
 ear {

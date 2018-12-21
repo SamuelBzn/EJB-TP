@@ -35,6 +35,10 @@ ENV LAUNCH_JBOSS_IN_BACKGROUND true
 
 USER jboss
 
+# Ajout d'une base de données déjà provisionnée pour simplifier les tests
+ADD --chown=jboss:jboss test.mv.db $HOME
+RUN chmod 755 $HOME/test.mv.db
+
 # Expose the ports we're interested in
 EXPOSE 8080
 EXPOSE 8082

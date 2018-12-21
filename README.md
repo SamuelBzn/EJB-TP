@@ -25,6 +25,12 @@ Pour lancer le conteneur Docker :
 $ docker run -p 8080:8080 -p 9990:9990 -it webserver
 ~~~
 
+Des données sont déjà présentes en base, pour se connecter avec un
+utilisateur administrateur existant :
+
+* username: Mouloud
+* password: s3cr3t
+
 ### Connexion à l'interface d'administration
 
 Pour se connecter à l'interface d'administration (i.e. <http://localhost:9990>),
